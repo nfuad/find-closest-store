@@ -4,6 +4,7 @@
 const csv = require('csvtojson')
 const express = require('express')
 const fetch = require('node-fetch')
+const opencage = require('opencage-api-client')
 
 // Import Config
 const config = require('./config')
@@ -61,7 +62,65 @@ app.get('/closest', async function(req, res) {
     return res.status(500).json({ message: "There's no input" })
   }
   if (req.query.address) {
-    return res.status(200).json({ message: req.query.address })
+    await opencage
+      .geocode({ q: req.query.address })
+      .then(data => {
+        if (data.status.code == 200) {
+          if (data.results.length > 0) {
+            const place = data.results[0]
+            const lat = place.geometry.lat
+            const lng = place.geometry.lng
+
+            let distances = []
+            const stores = JSON_ARRAY.filter(element => {
+              // calculate distance from input zip code to every single element in the filtered array
+              let distance = getDistanceFromLatLonInKm(
+                lat,
+                lng,
+                element.Latitude,
+                element.Longitude
+              )
+              if (distance >= 0) {
+                // distance must be >=0, extra check
+                distances.push(distance)
+              }
+              // return only those values that have the lowest values
+              if (distance === Math.min.apply(Math, distances)) {
+                return true
+              } else {
+                return false
+              }
+            })
+
+            if (req.query.units === 'km') {
+              return res.status(200).json({
+                closest: stores.length > 1 ? stores[0] : stores,
+                distanceInKm: Math.min.apply(Math, distances),
+              })
+            }
+
+            // by default, send the response for miles (if no units is specified)
+            return res.status(200).json({
+              closest: stores.length > 1 ? stores[0] : stores,
+              distanceInMile: Math.min.apply(Math, distances) / 1.621371, // convert km to mile
+            })
+          }
+        } else {
+          return res.status(data.status.code).json({
+            failed: {
+              statusCode: data.status.code,
+              message: data.status.message,
+            },
+          })
+        }
+      })
+      .catch(error => {
+        return res.status(500).json({
+          failed: {
+            error,
+          },
+        })
+      })
   }
   // if req.query.zip !== null
   if (req.query.zip) {
@@ -128,9 +187,11 @@ app.get('/closest', async function(req, res) {
       })
     }
   }
-  return res.status(200).json({
-    message: 'Provide some values for ' + Object.keys(req.query)[0],
-  })
+  if (!req.query.zip && !req.query.address) {
+    return res.status(200).json({
+      message: 'Provide some valid value for ' + Object.keys(req.query)[0],
+    })
+  }
 })
 
 // Start Server
