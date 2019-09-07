@@ -14,7 +14,7 @@ const getLocationFromZipCode = require('../utils/getLocationFromZipCode')
 const router = express.Router()
 
 // define the `/closest` route
-router.get('/closest', async function(req, res) {
+router.get('/', async function(req, res) {
   const JSON_ARRAY = await getStoresArrayFromCSV()
   // when there's no value passed for either zip or address
   if (Object.keys(req.query).length === 0) {
