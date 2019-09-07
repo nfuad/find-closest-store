@@ -10,8 +10,8 @@ const closest = require('./routes/closest')
 const app = express()
 
 // use the routes
-app.use(home)
-app.use(closest)
+app.use('/', home)
+app.use('/closest', closest)
 
 // Handle Route errors
 app.use((err, req, res, next) => {
