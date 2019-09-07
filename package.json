@@ -1,7 +1,8 @@
 {
-  "name": "find-store-server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "find-closest-store",
+  "version": "0.0.0",
+  "author": "Nafis Fuad <fuadbd14@gmail.com",
+  "description": "A simple API server for finding the closest store from a stores dataset given a specific address or postcode",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./index.js",
@@ -12,15 +13,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nfuad/find-store-server.git"
+    "url": "git+https://github.com/nfuad/find-closest-store.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "javascript",
+    "node.js",
+    "express",
+    "server",
+    "api",
+    "distance-calculation",
+    "testing"
+  ],
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nfuad/find-store-server/issues"
+    "url": "https://github.com/nfuad/find-closest-store/issues"
   },
-  "homepage": "https://github.com/nfuad/find-store-server#readme",
+  "homepage": "https://github.com/nfuad/find-closest-store#readme",
   "dependencies": {
     "csvtojson": "^2.0.10",
     "express": "^4.17.1",
