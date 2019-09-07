@@ -26,17 +26,15 @@ Note:
   addresses should be encoded for the URI
 ```
 
-##### About the Stores Data
+##### About the Stores' Data
 
-The stores data is found in the root directory as `store-locations.csv`
-
-This is a tabular dataset of the locations of every store of a major national retail chain.
+The stores' data is found in the root directory as `store-locations.csv`. This is a tabular dataset of the locations of every store of a major national retail chain.
 
 ### The Solution
 
 The data from the CSV files cannot be handled by Javascript without parsing. Therefore, first and foremost the store-locations.csv file needs to be parsed as JSON data, (so Javascript can actually use the data).
 For getting the latitude and longitude from the input address, an external geocoding API had to be used - i.e [Open Cage Data](https://opencagedata.com/). Similarly, for getting the latitude and longitude from the input ZIP Code, another external API was used - [Zip Code API](https://www.zipcodeapi.com/)
-To calculate the exact distance from one position to another, the very famous [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) had to be implemented in Javascript. All the calculation are done in kilometer unit and then converted to mile by using the unit conversion forumla. Mile is returned from the API by default if no unit is specified.
+To calculate the exact distance from one position to another, the very famous [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) had to be implemented in Javascript (as per requirement). All the calculation are done in kilometer unit and then converted to mile by using the unit conversion forumla. Mile is returned from the API by default if no unit is specified.
 
 ### Technical Details / Caveats
 
@@ -59,13 +57,9 @@ _Side Note:_ Since the index routes functionality is not explicitly mentioned in
 ##### About the Tests
 
 1. All unit tests are written in Jest and for the few integration tests, the Supertest framework is used.
-
 1. All the utility funcitons are refactored and put into the `utils` folder for easy testing, and code readablity.
-
 1. The tests for the utility functions are written inside the `__tests__/utils/` directory
-
 1. The tests for each routes are written inside the `__tests__/routes` direcotry
-
 1. The `server.test.js` contains some of the generic tests like error handling, and edge cases for the whole API
 
 ### Tech Stack
@@ -75,6 +69,7 @@ _Side Note:_ Since the index routes functionality is not explicitly mentioned in
 1. node-fetch module - to handle fetch requests for zip code api
 1. opencage-api-client module - to get location details from address
 1. Jest and Supertest frameworks were used for unit testing and integration testing
+1. Prettier and Eslint - for linting and code formatting
 
 ### Running Locally
 
@@ -111,5 +106,5 @@ In this folder there is
 ##### Notes
 
 0. Focus was mainly on completing the challenge, rather than framework/scaffolding).
-1. External geocoding service(s) were used, however the distance calculation is implemented in the code.
-1. The Haversine Formula for disttance calcuation was used.
+1. External geocoding service(s) were used
+1. The Haversine Formula for distance calcuation was used.
