@@ -12,7 +12,7 @@ const router = express.Router()
 // define the `/closest` route
 router.get('/', async function(req, res) {
   // Just return the whole array
-  return res.json(await getStoresArrayFromCSV())
+  return res.status(200).json(await getStoresArrayFromCSV())
 })
 
 module.exports = router
