@@ -76,7 +76,7 @@ _Side Note:_ Since the index routes functionality is not explicitly mentioned in
 Follow these steps to run the web app on your local machine
 
 0. Open up your terminal and type: git clone https://github.com/nfuad/find-closest-store.git
-1. Then enter into the cloned repo from the terminal using: cd find-closest-store (assuming the directory name wasn't changed while cloning)
+1. Then enter into the cloned repo from the terminal using: `cd find-closest-store` (assuming the directory name wasn't changed while cloning)
 1. In the terminal, type `npm install`
 1. Create a .env file
 1. Get the API keys from [Open Cage Data](https://opencagedata.com/) & [Zip Code API](https://www.zipcodeapi.com/) respectively.
