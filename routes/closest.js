@@ -34,7 +34,7 @@ router.get('/', async function(req, res) {
             // create a temporary distance array, to hold all the calculated distances
             let distances = []
             const stores = JSON_ARRAY.filter(element => {
-              // calculate distance from input zip code to every single element in the filtered array
+              // calculate distance from the address' location to every single element in the JSON_ARRAY
               let distance = getDistanceFromLatLonInKm(
                 lat,
                 lng,
